@@ -1178,13 +1178,19 @@ function refreshHud() {
   const armIcon = S.armT >= 0 ? ICN[ARMORS[S.armT].spr] || ICN.armor : ICN.armor;
   const underItem = under >= 0 ? L.items[under] : null;
   const underIcon = underItem ? (ICN[itemSprKey(underItem)] || "") : "";
-  $("items").innerHTML = it +
+  const inventory = it +
     '<span data-use="eat"' + (inv.food ? "" : ' class="zero"') + '><i style="background-image:url(' + ICN.ration + ')"></i>' + inv.food + "</span>" +
-    '<span data-use="zap"' + (inv.wand ? "" : ' class="zero"') + '><i style="background-image:url(' + ICN.wand + ')"></i>' + inv.wand + "</span>" +
+    '<span data-use="zap"' + (inv.wand ? "" : ' class="zero"') + '><i style="background-image:url(' + ICN.wand + ')"></i>' + inv.wand + "</span>";
+  const equipment =
     (S.wepT >= 0 ? '<span><i style="background-image:url(' + wepIcon + ')"></i>' + itemName({ kind: "wpn", tier: S.wepT }) + "</span>" : "") +
-    (S.armT >= 0 ? '<span><i style="background-image:url(' + armIcon + ')"></i>' + itemName({ kind: "armor", tier: S.armT }) + "</span>" : "") +
-    (under >= 0 ? '<span class="here" data-use="pick"><i style="background-image:url(' + underIcon + ')"></i>' + itemName(underItem) + "</span>"
-      : (dc && dc.t === "fountain" ? '<span class="here" data-use="drink"><i style="background-image:url(' + ICN.fountain + ')"></i>' + ITN.fountain[LIDX[lang]] + "</span>" : ""));
+    (S.armT >= 0 ? '<span><i style="background-image:url(' + armIcon + ')"></i>' + itemName({ kind: "armor", tier: S.armT }) + "</span>" : "");
+  const groundItem = under >= 0
+    ? '<span class="here" data-use="pick"><i style="background-image:url(' + underIcon + ')"></i>' + itemName(underItem) + "</span>"
+    : (dc && dc.t === "fountain" ? '<span class="here" data-use="drink"><i style="background-image:url(' + ICN.fountain + ')"></i>' + ITN.fountain[LIDX[lang]] + "</span>" : "");
+  $("items").innerHTML =
+    '<div class="item-row inventory-row">' + inventory + "</div>" +
+    '<div class="item-row equipment-row">' + equipment + "</div>" +
+    '<div class="item-row ground-row">' + groundItem + "</div>";
 
   const on = n => n ? "" : " none";
   $("bPick").className = "key act" + on(under >= 0 || (dc && dc.t === "fountain")); $("bPick").innerHTML = '<i style="background-image:url(' + ICONU.i_bag + ')"></i><b>G</b>' + (under >= 0 ? "◈" : "");

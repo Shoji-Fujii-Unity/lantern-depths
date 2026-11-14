@@ -100,19 +100,21 @@ select:hover, .iconbtn:hover { border-color: var(--line2); filter: brightness(1.
 #log .c-sys { color: #9ab0d8; } #log .c-good { color: #92eb9e; } #log .c-bad { color: #ff8c7c; }
 #log .c-item { color: #ffda58; } #log .c-mob { color: #df9eff; } #log .c-you { color: #94c6ff; }
 
-#items { display: flex; gap: 5px; padding: 3px 8px 4px; font-size: 11px; flex-wrap: nowrap; overflow-x: auto; min-height: 28px; flex: none; scrollbar-width: none; background: #070b15; }
-#items::-webkit-scrollbar { display: none; }
+#items { display: flex; flex-direction: column; gap: 3px; padding: 3px 8px 4px; font-size: 11px; min-height: 28px; flex: none; background: #070b15; }
+#items .item-row { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; min-width: 0; }
+#items .item-row:empty { display: none; }
 #items span {
   display: flex; align-items: center; gap: 4px; cursor: pointer; padding: 2px 7px;
   border: 2px solid var(--line); background: linear-gradient(180deg, #141e36, #0d1424);
-  white-space: nowrap; box-shadow: 0 2px 0 #04060b; transition: border-color .15s;
+  min-width: 0; max-width: 100%; overflow-wrap: anywhere;
+  box-shadow: 0 2px 0 #04060b; transition: border-color .15s;
 }
 #items span:hover { border-color: var(--line2); }
 #items span:active { background: var(--panel2); transform: translateY(1px); }
 #items span.here { border-color: var(--accent); color: var(--accent2); box-shadow: 0 0 8px rgba(232,178,74,.35); animation: pulseBorder 1.4s infinite; }
 @keyframes pulseBorder { 50% { border-color: var(--accent2); box-shadow: 0 0 12px rgba(255,224,102,.55); } }
 #items span.zero { opacity: .35; }
-#items i { width: 12px; height: 12px; background-repeat: no-repeat; background-size: contain; display: inline-block; }
+#items i { width: 12px; height: 12px; flex: 0 0 12px; background-repeat: no-repeat; background-size: contain; display: inline-block; }
 
 /* ---------- パッド ---------- */
 #controls { display: flex; gap: 10px; padding: 5px 8px calc(8px + env(safe-area-inset-bottom)); flex: none; justify-content: center; align-items: center; background: #060912; }
