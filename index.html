@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#05070d">
+<meta name="description" content="六層の灯 −LANTERN DEPTHS− : ドット絵ローグライク。NetHack Lite 系譜。">
+<title>六層の灯 −LANTERN DEPTHS−</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+  <header>
+    <div id="logo">
+      <span class="title" style="color:var(--accent);font-size:15px;text-shadow:0 0 12px rgba(232,178,74,.55)">六層の灯</span>
+      <span class="sub">LANTERN DEPTHS</span>
+    </div>
+    <select id="langSel" title="language"><option value="ja">日本語</option><option value="en">English</option><option value="zh">中文</option></select>
+    <button class="iconbtn" id="bOpenBook" title="bestiary"></button>
+    <button class="iconbtn" id="bOpenHelp" title="help"></button>
+    <button class="iconbtn on" id="sndBtn" title="sound"></button>
+  </header>
+
+  <div id="status"></div>
+
+  <div id="mapWrap">
+    <canvas id="cv"></canvas>
+    <canvas id="minimap" title="Minimap (Tab / Tap)"></canvas>
+    <div id="depthTag"></div>
+    <div id="toast"></div>
+  </div>
+
+  <div id="log"></div>
+  <div id="items"></div>
+
+  <div id="controls">
+    <div id="dpad">
+      <button class="key" data-d="-1,-1"></button><button class="key" data-d="0,-1"></button><button class="key" data-d="1,-1"></button>
+      <button class="key" data-d="-1,0"></button><button class="key c2" data-d="0,0"></button><button class="key" data-d="1,0"></button>
+      <button class="key" data-d="-1,1"></button><button class="key" data-d="0,1"></button><button class="key" data-d="1,1"></button>
+    </div>
+    <div id="acts">
+      <button class="key act" id="bPick"></button>
+      <button class="key act" id="bEat"></button>
+      <button class="key act" id="bMagic"></button>
+      <button class="key act" id="bDown"></button>
+      <button class="key act" id="bExpl"></button>
+    </div>
+  </div>
+
+  <!-- タイトル -->
+  <div class="overlay" id="titleScr">
+    <canvas id="titleLogo"></canvas>
+    <div style="font-family:var(--ps);font-size:8px;letter-spacing:2px;color:#8fa2cc;margin-top:-4px;text-shadow:0 2px 0 #000">LANTERN&nbsp;DEPTHS</div>
+    <div class="langs" id="titleLangs">
+      <button data-l="ja">日本語</button><button data-l="en">English</button><button data-l="zh">中文</button>
+    </div>
+    <input type="text" id="heroName" maxlength="12">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+      <div class="hint" id="diffLbl" style="margin:0">難易度</div>
+      <div class="diffs" id="diffSel">
+        <button data-d="easy">やすらか</button><button data-d="normal" class="on">ふつう</button><button data-d="hard">死地</button>
+      </div>
+    </div>
+    <button class="bigbtn main" id="bNew"></button>
+    <button class="bigbtn hidden" id="bCont"></button>
+    <div style="display:flex;gap:8px">
+      <button class="bigbtn" id="bScore" style="min-width:120px"></button>
+      <button class="bigbtn" id="bBook" style="min-width:120px"></button>
+    </div>
+    <button class="bigbtn" id="bHelp" style="min-width:120px;padding:8px 20px;font-size:12px"></button>
+    <div class="hint" id="titleHint"></div>
+    <div class="credit">GSAP · Tone.js · DotGothic16</div>
+  </div>
+
+  <!-- 結末 -->
+  <div class="overlay hidden" id="overScr">
+    <h1 id="overTitle"></h1>
+    <div id="overStats" style="font-size:13px;color:#c8cfdd;text-align:center;line-height:1.75"></div>
+    <button class="bigbtn main hidden" id="bKeep"></button>
+    <button class="bigbtn" id="bSaveScore"></button>
+    <button class="bigbtn" id="bToTitle"></button>
+  </div>
+
+  <!-- ハイスコア -->
+  <div class="overlay hidden" id="scoreScr">
+    <h1 id="scoreTitle"></h1>
+    <table id="scoreTable"></table>
+    <button class="bigbtn" id="bScoreClose"></button>
+  </div>
+
+  <!-- 図鑑 -->
+  <div class="overlay hidden" id="bookScr">
+    <h2 id="bTitle"></h2>
+    <div class="tabs" id="bookTabs"><button data-t="mob">モンスター</button><button data-t="item">アイテム</button></div>
+    <div id="bookList"></div>
+    <button class="bigbtn" id="bClose"></button>
+  </div>
+
+  <!-- 操作 -->
+  <div class="overlay hidden" id="helpScr">
+    <h2 id="hTitle"></h2>
+    <div id="hBody"></div>
+    <button class="bigbtn" id="hClose"></button>
+  </div>
+
+</div>
+
+<script src="libs/gsap.min.js"></script>
+<script>window.gsap || document.write('<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"><\/script>');</script>
+<script src="libs/tone.js"></script>
+<script>window.Tone || document.write('<script src="https://cdn.jsdelivr.net/npm/tone@14.7.77/build/Tone.js"><\/script>');</script>
+<script src="js/art.js"></script>
+<script src="js/pixel.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
